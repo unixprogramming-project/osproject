@@ -45,6 +45,7 @@ build/release/bench_shm_server --cleanup-only --team 조번호
 (pipe, mq도 같은 방법. 버전별로 실행한다)
 
 [문서]
+docs/setup-guide.md         팀 준비와 측정 절차 (먼저 읽는다)
 docs/code-guide.md          코드 구조와 읽는 순서
 docs/decisions.md           설계 결정과 근거
 docs/requirements-check.md  과제 요구사항 점검표
