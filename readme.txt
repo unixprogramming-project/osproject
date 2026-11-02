@@ -22,7 +22,7 @@ pipe, mq도 같은 옵션을 쓴다. 결과는 CSV 한 줄씩 출력된다. 서�
 
 [측정 재현]
 scripts/run_tests.sh                   내용 검증, 자원 정리, sanitizer 검사
-scripts/run_official.sh [출력폴더]      1단계 본측정 전체 (약 70분)
+scripts/run_official.sh [출력폴더]      1단계 본측정 전체 (약 80분)
 scripts/summarize.py <csv> [출력csv]    조건별 요약
 scripts/exp_idle.sh <폴더> [반복]       코어 유휴 진입 영향 추가 실험
 scripts/exp_sensitivity.sh <폴더> [반복] 버퍼 구성 추가 실험
