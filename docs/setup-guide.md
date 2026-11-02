@@ -123,7 +123,7 @@ cat results/phase1/idle/same_cpu_summary.txt
 
 확인할 내용
 - 조건별 순위와 순위가 바뀌는 지점
-- 회차 사이 흔들림: `summary.csv`의 `p50_spread`, `mb_spread`. 값이 크면 측정 중 간섭을 의심한다
+- 회차 사이 흔들림: `summary.csv`의 `p50_spread`, `mb_spread`. 값이 크면 `phase1.csv`에서 회차별 값을 직접 본다. 측정 중 간섭일 수 있고, 프로세스가 잠들지 않고 주고받은 회차와 잠든 회차가 섞인 것일 수도 있다 (`nvcsw`로 구분). 평균만 보고 결론 내리지 않는다
 - 클라이언트 1개의 기본 결과와 `busy`, `same_cpu` 결과 차이
 - 이 컴퓨터의 제한값: `results/phase1/env.txt`의 `mq_msgsize_max`, `rlimit_msgqueue`
 
