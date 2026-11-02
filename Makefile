@@ -46,7 +46,7 @@ asan:
 # 제출용 묶음: make tar TEAM=조번호
 TEAM ?= 0
 tar:
-	tar cvf osproject_$(TEAM).tar --exclude=build --exclude=results/pilot --exclude='*.tar' --exclude=.git .
+	tar cvf osproject_$(TEAM).tar --exclude=build --exclude=results/pilot --exclude='*.tar' --exclude=.git --exclude=spin .
 
 clean:
 	rm -rf build

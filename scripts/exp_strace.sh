@@ -6,14 +6,16 @@ set -u
 OUT=${1:?usage: exp_strace.sh <out-dir>}
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BIN=$ROOT/build/release
+TEAM=${TEAM:-0}
 command -v strace >/dev/null || { echo "strace가 없습니다: sudo apt install strace" >&2; exit 1; }
 mkdir -p "$OUT"
 for ipc in pipe mq shm; do for size in 64 16384 1048576; do
-    "$BIN/bench_${ipc}_server" --cleanup-only
-    "$BIN/bench_${ipc}_server" --clients 1 --mode pingpong &
+    "$BIN/bench_${ipc}_server" --cleanup-only --team "$TEAM"
+    "$BIN/bench_${ipc}_server" --clients 1 --mode pingpong --team "$TEAM" &
     srv=$!
     strace -f -c -o "$OUT/${ipc}_${size}.txt" \
-        "$BIN/bench_${ipc}_client" --clients 1 --size "$size" --mode pingpong --duration-ms 500 --warmup-ms 0 >"$OUT/${ipc}_${size}.csv"
+        "$BIN/bench_${ipc}_client" --clients 1 --size "$size" --mode pingpong --team "$TEAM" \
+        --duration-ms 500 --warmup-ms 0 >"$OUT/${ipc}_${size}.csv"
     wait "$srv"
 done; done
 echo "완료: $OUT"

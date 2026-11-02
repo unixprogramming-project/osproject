@@ -9,9 +9,15 @@ case "$ROOT" in
     /mnt/*) echo "error: Linux 파일시스템으로 복사한 뒤 실행하세요 (예: ~/osproject)" >&2; exit 1 ;;
 esac
 OUT=${1:-results/phase1_$(date +%Y%m%d_%H%M)}
+REPS=${REPS:-30}
+# 기존 CSV에 이어 쓰면 다른 측정이 섞이므로 새 폴더만 허용한다
+if [ -e "$OUT" ]; then
+    echo "error: $OUT 폴더가 이미 있습니다. 새 폴더를 지정하세요" >&2
+    exit 1
+fi
 scripts/run_tests.sh || { echo "검증 실패: 측정하지 않습니다" >&2; exit 1; }
-scripts/run_phase1.sh "$OUT" 30 || echo "일부 실행 실패: $OUT/errors.log 확인" >&2
-scripts/exp_idle.sh "$OUT/idle" 30 || echo "유휴 실험 일부 실패: $OUT/idle/errors.log 확인" >&2
+scripts/run_phase1.sh "$OUT" "$REPS" || echo "일부 실행 실패: $OUT/errors.log 확인" >&2
+scripts/exp_idle.sh "$OUT/idle" "$REPS" || echo "유휴 실험 일부 실패: $OUT/idle/errors.log 확인" >&2
 python3 scripts/summarize.py "$OUT/phase1.csv" "$OUT/summary.csv" | tee "$OUT/summary.txt"
 for v in busy same_cpu; do
     python3 scripts/summarize.py "$OUT/idle/$v.csv" "$OUT/idle/${v}_summary.csv" > "$OUT/idle/${v}_summary.txt"
