@@ -1,0 +1,70 @@
+
+## 처리량 중앙값 (MB/s)
+ hit cli       pipe        shm   shm/pipe
+  80   4     4655.9    14886.5       3.20
+  20   4     4020.6     5982.2       1.49
+
+## 처리량 중앙값 (요청/s)
+ hit cli       pipe        shm   shm/pipe
+  80   4      18171      57960       3.19
+  20   4      15787      23337       1.48
+
+## 요청 지연 p50 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4      665.9      167.9       0.25
+  20   4      746.7      563.3       0.75
+
+## 요청 지연 p99 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4     3019.7     1651.8       0.55
+  20   4     3545.6     2208.5       0.62
+
+## 캐시 적중률
+ hit cli       pipe        shm   shm/pipe
+  80   4      0.776      0.775       1.00
+  20   4      0.092      0.093       1.01
+
+## 요청당 캐시 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4       1.06       0.84       0.79
+  20   4       2.02       1.32       0.65
+
+## 요청당 작업 큐 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4       33.5       90.9       2.72
+  20   4       99.9      415.4       4.16
+
+## 요청당 송신 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4        0.8        0.7       0.90
+  20   4        0.2        0.3       1.29
+
+## 미스당 필터 연산 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4      238.2      238.3       1.00
+  20   4      188.1      182.4       0.97
+
+## 서버 sys CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      356.4       55.3       0.16
+  20   4      383.3       80.0       0.21
+
+## 서버 user CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      213.2      272.6       1.28
+  20   4      659.0      682.7       1.04
+
+## 서버 자발적 CS (회/요청)
+ hit cli       pipe        shm   shm/pipe
+  80   4       6.02       1.28       0.21
+  20   4       5.50       1.55       0.28
+
+## 서버 최대 RSS (KB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      52398      57858       1.10
+  20   4      52890      58208       1.10
+
+## 클라 CPU (us/요청)
+ hit cli       pipe        shm   shm/pipe
+  80   4       97.1       31.6       0.33
+  20   4      104.3       36.8       0.35

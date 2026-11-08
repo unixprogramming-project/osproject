@@ -1,0 +1,74 @@
+verify ok
+runs: 40
+start 2026-11-08 19:39:27
+done: 40 failed: 0
+
+## 처리량 중앙값 (MB/s)
+ hit cli       pipe        shm   shm/pipe
+  80   4     4690.8    18379.7       3.92
+  20   4     4137.4     6694.6       1.62
+
+## 처리량 중앙값 (요청/s)
+ hit cli       pipe        shm   shm/pipe
+  80   4      18306      71584       3.91
+  20   4      16261      26103       1.61
+
+## 요청 지연 p50 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4      684.8      146.3       0.21
+  20   4      716.9      496.0       0.69
+
+## 요청 지연 p99 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4     2840.6     1451.2       0.51
+  20   4     3465.4     2073.8       0.60
+
+## 캐시 적중률
+ hit cli       pipe        shm   shm/pipe
+  80   4      0.799      0.800       1.00
+  20   4      0.176      0.178       1.01
+
+## 요청당 캐시 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4       0.44       0.39       0.88
+  20   4       0.84       0.69       0.81
+
+## 요청당 작업 큐 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4       31.5       52.7       1.67
+  20   4       79.6      358.7       4.51
+
+## 요청당 송신 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4        0.9        0.9       1.00
+  20   4        0.2        0.3       1.12
+
+## 미스당 필터 연산 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4      189.3      184.6       0.97
+  20   4      185.2      181.2       0.98
+
+## 서버 sys CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      348.4       44.9       0.13
+  20   4      360.8       58.9       0.16
+
+## 서버 user CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      165.0      219.8       1.33
+  20   4      605.1      637.5       1.05
+
+## 서버 자발적 CS (회/요청)
+ hit cli       pipe        shm   shm/pipe
+  80   4       6.08       1.32       0.22
+  20   4       5.57       1.45       0.26
+
+## 서버 최대 RSS (KB)
+ hit cli       pipe        shm   shm/pipe
+  80   4     109942     115478       1.05
+  20   4     112292     119456       1.06
+
+## 클라 CPU (us/요청)
+ hit cli       pipe        shm   shm/pipe
+  80   4       95.6       30.3       0.32
+  20   4      103.1       36.2       0.35
