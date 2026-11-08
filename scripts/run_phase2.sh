@@ -40,7 +40,10 @@ echo "runs: $total" | tee -a "$OUT/run.log"
 echo "start $(date '+%F %T')" | tee -a "$OUT/run.log"
 done_n=0 failed=0
 while read -r ipc n hit r; do
-    if ! TEAM=$TEAM "$ROOT/scripts/run_app_one.sh" "$ipc" "$n" "$hit" "$CSV" "$r" 2>>"$OUT/errors.log"; then
+    # PHASE2_CLIENT_ARGS: 추가 실험용 클라 옵션 (예: "--window 1"). 읽기 루프의 표준 입력을 뺏지 않게 </dev/null
+    # shellcheck disable=SC2086
+    if ! TEAM=$TEAM "$ROOT/scripts/run_app_one.sh" "$ipc" "$n" "$hit" "$CSV" "$r" ${PHASE2_CLIENT_ARGS:-} \
+        2>>"$OUT/errors.log" </dev/null; then
         echo "fail: $ipc $n $hit $r" >>"$OUT/errors.log"
         failed=$((failed + 1))
     fi
