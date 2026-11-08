@@ -48,7 +48,11 @@ pipe, mq도 같은 옵션을 쓴다. 서버 --clients와 클라이언트 --clien
   scripts/check_ipc.sh                     종료 후 IPC 자원 확인 (ipcs, /dev/mqueue, /dev/shm, FIFO)
   scripts/capture_phase1.sh, capture_phase2.sh   보고서 캡처
 
-측정 원자료: results/phase1, results/phase2 (v1), results/phase2_v2 (v2), results/phase2_exp, results/phase2_mem
+측정 원자료: results/phase1, results/phase2 (v1), results/phase2_v2 (v2),
+            results/phase2_exp30 (원인 확인 실험, 조건당 30회), results/phase2_mem30 (캐시 용량 실험, 조건당 30회)
+            results/phase2_exp, results/phase2_mem (같은 실험의 첫 10회 측정, 보고서에는 30회 결과를 씀)
+            results/phase2_exp30_excluded (측정 중 PC 절전으로 제외하고 다시 잰 워커 16 조건의 원래 데이터)
+측정 품질 점검: scripts/check_outliers.py results > results/outlier_check.txt
 본측정 전 준비: 전원 연결, 다른 프로그램과 Docker Desktop 종료.
 WSL2에서는 소스를 Linux 쪽(예: ~/osproject)에 두고 실행한다. /mnt 아래에서는 측정 스크립트가 실행을 거부한다.
 

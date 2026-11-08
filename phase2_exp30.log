@@ -1,0 +1,15 @@
+workers_1: done: 60 failed: 0
+workers_2: done: 60 failed: 0
+workers_4: done: 60 failed: 0
+workers_8: done: 60 failed: 0
+workers_16: done: 60 failed: 0
+hit_0: done: 60 failed: 0
+hit_20: done: 60 failed: 0
+hit_50: done: 60 failed: 0
+hit_80: done: 60 failed: 0
+hit_100: done: 60 failed: 0
+window_1: done: 60 failed: 0
+window_4: done: 60 failed: 0
+완료: results/phase2_exp30
+cache 64: done: 120 failed: 0
+cache 16: done: 120 failed: 0

@@ -1,0 +1,60 @@
+verify ok
+runs: 60
+start 2026-11-08 20:51:19
+done: 60 failed: 0
+
+## 처리량 중앙값 (MB/s)
+ hit cli       pipe        shm   shm/pipe
+  80   4     1947.5     9360.3       4.81
+
+## 처리량 중앙값 (요청/s)
+ hit cli       pipe        shm   shm/pipe
+  80   4       7688      36360       4.73
+
+## 요청 지연 p50 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4     1946.8      322.6       0.17
+
+## 요청 지연 p99 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4     4805.4     1699.2       0.35
+
+## 캐시 적중률
+ hit cli       pipe        shm   shm/pipe
+  80   4      0.801      0.799       1.00
+
+## 요청당 캐시 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4       0.05       0.06       1.16
+
+## 요청당 작업 큐 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4     1795.4      341.7       0.19
+
+## 요청당 송신 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4       50.4        3.0       0.06
+
+## 미스당 필터 연산 (us)
+ hit cli       pipe        shm   shm/pipe
+  80   4      176.8      170.1       0.96
+
+## 서버 sys CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      265.4       23.8       0.09
+
+## 서버 user CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      147.3      191.8       1.30
+
+## 서버 자발적 CS (회/요청)
+ hit cli       pipe        shm   shm/pipe
+  80   4       4.80       0.72       0.15
+
+## 서버 최대 RSS (KB)
+ hit cli       pipe        shm   shm/pipe
+  80   4      99646     106152       1.07
+
+## 클라 CPU (us/요청)
+ hit cli       pipe        shm   shm/pipe
+  80   4       97.1       29.2       0.30
