@@ -1,0 +1,36 @@
+== 1. 양방향 경계값 전송
+ok   duplex pipe
+ok   duplex mq
+ok   duplex shm
+== 2. 내용 검증 벤치마크 (크기 경계, 클라이언트 1/2/8)
+ok   verify 전체 실행 후 잔여 자원 0
+== 3. 측정 중 서버에 SIGINT/SIGTERM → 자원 정리
+ok   pipe SIGINT 후 잔여 자원 0
+ok   pipe SIGINT 후 남은 프로세스 0
+ok   pipe SIGTERM 후 잔여 자원 0
+ok   pipe SIGTERM 후 남은 프로세스 0
+ok   mq SIGINT 후 잔여 자원 0
+ok   mq SIGINT 후 남은 프로세스 0
+ok   mq SIGTERM 후 잔여 자원 0
+ok   mq SIGTERM 후 남은 프로세스 0
+ok   shm SIGINT 후 잔여 자원 0
+ok   shm SIGINT 후 남은 프로세스 0
+ok   shm SIGTERM 후 잔여 자원 0
+ok   shm SIGTERM 후 남은 프로세스 0
+== 4. 서버 SIGKILL 뒤 --cleanup-only로 복구
+ok   pipe SIGKILL 복구
+ok   mq SIGKILL 복구
+ok   shm SIGKILL 복구
+== 5. 메시지 큐 최대 클라이언트 자원 한도
+ok   mq 클라이언트 8개(큐 16개) 생성
+== 6. Sanitizer
+ok   tsan 빌드
+ok   asan 빌드
+ok   tsan duplex pipe
+ok   asan duplex pipe
+ok   tsan duplex mq
+ok   asan duplex mq
+ok   tsan duplex shm
+ok   asan duplex shm
+pass=28 fail=0
+runs: 3600  (실행당 약 600ms 이상)

@@ -1,0 +1,22 @@
+## pipe 64 B, client 1, 500ms
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 19.18    0.029258           5      5617           read
+ 15.06    0.022977           8      2807           writev
+  0.00    0.000000           0         2           pread64
+100.00    0.152549          17      8496         1 total
+## mq 64 B, client 1, 500ms
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 19.45    0.028590           5      5087           mq_timedsend
+ 15.13    0.022249           4      5086           mq_timedreceive
+  0.01    0.000016           3         5           read
+  0.00    0.000000           0         2           pread64
+100.00    0.147013          14     10250         1 total
+## shm 64 B, client 1, 500ms
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 36.32    0.056260           8      6640        41 futex
+  0.01    0.000013           2         5           read
+  0.00    0.000000           0         2           pread64
+100.00    0.154884          23      6717        42 total

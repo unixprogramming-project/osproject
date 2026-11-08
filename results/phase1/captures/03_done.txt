@@ -1,0 +1,7 @@
+end 2026-11-08 17:41:40
+done: 3600 failed: 0
+  20701 results/phase1/phase1.csv
+   2701 results/phase1/idle/busy.csv
+   2701 results/phase1/idle/same_cpu.csv
+  26103 total
+0

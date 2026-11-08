@@ -1,0 +1,16 @@
+shm_8x65536    shm         64 cli=1       21.9 MB/s vcsw/msg=0.11585
+shm_8x65536    shm       1024 cli=1      359.3 MB/s vcsw/msg=0.120827
+shm_8x65536    shm      16384 cli=1     8582.5 MB/s vcsw/msg=0.238693
+shm_8x65536    shm    1048576 cli=1    30967.6 MB/s vcsw/msg=0.170767
+shm_64x8192    shm         64 cli=1      183.4 MB/s vcsw/msg=0.000626661
+shm_64x8192    shm       1024 cli=1     2593.1 MB/s vcsw/msg=0.000419289
+shm_64x8192    shm      16384 cli=1    18910.6 MB/s vcsw/msg=0.000368378
+shm_64x8192    shm    1048576 cli=1    23140.6 MB/s vcsw/msg=0.0315806
+shm_512x1024   shm         64 cli=1      207.7 MB/s vcsw/msg=3.20405e-05
+shm_512x1024   shm       1024 cli=1     3124.8 MB/s vcsw/msg=2.65557e-05
+shm_512x1024   shm      16384 cli=1     4465.0 MB/s vcsw/msg=0.00276693
+shm_512x1024   shm    1048576 cli=1     4108.6 MB/s vcsw/msg=0.604566
+shm_2048x256   shm         64 cli=1      259.8 MB/s vcsw/msg=3.6272e-05
+shm_2048x256   shm       1024 cli=1     1188.3 MB/s vcsw/msg=0.00240368
+shm_2048x256   shm      16384 cli=1     1274.3 MB/s vcsw/msg=0.0108395
+shm_2048x256   shm    1048576 cli=1     1399.6 MB/s vcsw/msg=0.788671

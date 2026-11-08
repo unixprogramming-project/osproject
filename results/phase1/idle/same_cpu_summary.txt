@@ -1,0 +1,24 @@
+
+## 왕복 지연 p50 (us)
+     size cli       pipe         mq        shm  순위
+       64   1        2.3        2.0        1.9  shm>mq>pipe
+     1024   1        2.4        2.1        2.4  mq>pipe>shm
+    16384   1        5.7        6.8        3.6  shm>pipe>mq
+   262144   1       61.7       87.0       24.9  shm>pipe>mq
+  1048576   1      251.6      366.1      141.5  shm>pipe>mq
+
+## 왕복 지연 p99 (us)
+     size cli       pipe         mq        shm  순위
+       64   1        2.8        2.2        2.2  mq>shm>pipe
+     1024   1        2.8        2.5        2.8  mq>shm>pipe
+    16384   1        6.8       10.5        6.8  shm>pipe>mq
+   262144   1       89.8      193.3       62.6  shm>pipe>mq
+  1048576   1      512.9      748.4      388.8  shm>pipe>mq
+
+## 합계 처리량 중앙값 (MB/s)
+     size cli       pipe         mq        shm  순위
+       64   1      114.1      101.9      221.9  shm>pipe>mq
+     1024   1     1476.6     1336.6     3236.5  shm>pipe>mq
+    16384   1     5985.9     4633.5    16992.3  shm>pipe>mq
+   262144   1     8047.6     5656.7    15871.8  shm>pipe>mq
+  1048576   1     8263.7     5640.9    14718.3  shm>pipe>mq

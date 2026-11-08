@@ -1,0 +1,7 @@
+== C. message queue 깊이 (클라이언트 1개)
+mq_depth1      mq          64 cli=1        7.3 MB/s vcsw/msg=0.333634
+mq_depth1      mq     1048576 cli=1      941.5 MB/s vcsw/msg=43.1596
+mq_depth5      mq          64 cli=1       18.9 MB/s vcsw/msg=0.134011
+mq_depth5      mq     1048576 cli=1     3116.2 MB/s vcsw/msg=17.7901
+mq_depth10     mq          64 cli=1       41.4 MB/s vcsw/msg=0.0491282
+mq_depth10     mq     1048576 cli=1     5030.0 MB/s vcsw/msg=15.4646

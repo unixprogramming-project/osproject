@@ -1,0 +1,206 @@
+== 1. 양방향 경계값 전송
+ok   duplex pipe
+ok   duplex mq
+ok   duplex shm
+== 2. 내용 검증 벤치마크 (크기 경계, 클라이언트 1/2/8)
+ok   verify 전체 실행 후 잔여 자원 0
+== 3. 측정 중 서버에 SIGINT/SIGTERM → 자원 정리
+ok   pipe SIGINT 후 잔여 자원 0
+ok   pipe SIGINT 후 남은 프로세스 0
+ok   pipe SIGTERM 후 잔여 자원 0
+ok   pipe SIGTERM 후 남은 프로세스 0
+ok   mq SIGINT 후 잔여 자원 0
+ok   mq SIGINT 후 남은 프로세스 0
+ok   mq SIGTERM 후 잔여 자원 0
+ok   mq SIGTERM 후 남은 프로세스 0
+ok   shm SIGINT 후 잔여 자원 0
+ok   shm SIGINT 후 남은 프로세스 0
+ok   shm SIGTERM 후 잔여 자원 0
+ok   shm SIGTERM 후 남은 프로세스 0
+== 4. 서버 SIGKILL 뒤 --cleanup-only로 복구
+ok   pipe SIGKILL 복구
+ok   mq SIGKILL 복구
+ok   shm SIGKILL 복구
+== 5. 메시지 큐 최대 클라이언트 자원 한도
+ok   mq 클라이언트 8개(큐 16개) 생성
+== 6. Sanitizer
+ok   tsan 빌드
+ok   asan 빌드
+ok   tsan duplex pipe
+ok   asan duplex pipe
+ok   tsan duplex mq
+ok   asan duplex mq
+ok   tsan duplex shm
+ok   asan duplex shm
+pass=28 fail=0
+runs: 3600  (실행당 약 600ms 이상)
+start 2026-11-08 17:06:03
+17:07:03 100/3600 failed=0
+17:08:04 200/3600 failed=0
+17:09:03 300/3600 failed=0
+17:10:03 400/3600 failed=0
+17:11:02 500/3600 failed=0
+17:12:02 600/3600 failed=0
+17:13:02 700/3600 failed=0
+17:14:01 800/3600 failed=0
+17:15:01 900/3600 failed=0
+17:16:01 1000/3600 failed=0
+17:17:00 1100/3600 failed=0
+17:17:59 1200/3600 failed=0
+17:18:58 1300/3600 failed=0
+17:19:58 1400/3600 failed=0
+17:20:57 1500/3600 failed=0
+17:21:56 1600/3600 failed=0
+17:22:55 1700/3600 failed=0
+17:23:54 1800/3600 failed=0
+17:24:54 1900/3600 failed=0
+17:25:54 2000/3600 failed=0
+17:26:53 2100/3600 failed=0
+17:27:52 2200/3600 failed=0
+17:28:51 2300/3600 failed=0
+17:29:50 2400/3600 failed=0
+17:30:49 2500/3600 failed=0
+17:31:48 2600/3600 failed=0
+17:32:47 2700/3600 failed=0
+17:33:46 2800/3600 failed=0
+17:34:46 2900/3600 failed=0
+17:35:45 3000/3600 failed=0
+17:36:44 3100/3600 failed=0
+17:37:43 3200/3600 failed=0
+17:38:42 3300/3600 failed=0
+17:39:42 3400/3600 failed=0
+17:40:41 3500/3600 failed=0
+17:41:40 3600/3600 failed=0
+end 2026-11-08 17:41:40
+done: 3600 failed: 0
+exp_idle failed: 0
+== A. 코어 유휴 진입 (왕복 지연)
+base           pipe        64 cli=1 p50=     19.9us p99=     55.4us vcsw/msg=0.999524
+same_cpu       pipe        64 cli=1 p50=      2.3us p99=      2.7us vcsw/msg=0.722612
+busy_cpus      pipe        64 cli=1 p50=      2.6us p99=      4.3us vcsw/msg=0.734312
+base           pipe     16384 cli=1 p50=     28.1us p99=     95.9us vcsw/msg=0.999735
+same_cpu       pipe     16384 cli=1 p50=      5.6us p99=      6.7us vcsw/msg=0.832853
+busy_cpus      pipe     16384 cli=1 p50=      6.0us p99=      9.8us vcsw/msg=0.838941
+base           mq          64 cli=1 p50=     19.9us p99=     51.7us vcsw/msg=0.99066
+same_cpu       mq          64 cli=1 p50=      1.9us p99=      2.2us vcsw/msg=0.690435
+busy_cpus      mq          64 cli=1 p50=      2.2us p99=      3.7us vcsw/msg=0.695136
+base           mq       16384 cli=1 p50=     28.1us p99=     90.2us vcsw/msg=1.00683
+same_cpu       mq       16384 cli=1 p50=      6.7us p99=     10.4us vcsw/msg=1.22873
+busy_cpus      mq       16384 cli=1 p50=      7.2us p99=     17.0us vcsw/msg=1.252
+base           shm         64 cli=1 p50=     19.3us p99=     54.7us vcsw/msg=0.99442
+same_cpu       shm         64 cli=1 p50=      1.8us p99=      2.2us vcsw/msg=0.77458
+busy_cpus      shm         64 cli=1 p50=      2.3us p99=      6.0us vcsw/msg=0.829005
+base           shm      16384 cli=1 p50=     22.1us p99=     70.8us vcsw/msg=1.00085
+same_cpu       shm      16384 cli=1 p50=      3.5us p99=      6.8us vcsw/msg=1.37623
+busy_cpus      shm      16384 cli=1 p50=      3.9us p99=     10.5us vcsw/msg=1.29958
+== B. shared memory 슬롯 구성 (총용량 약 512KB)
+shm_8x65536    shm         64 cli=1       21.9 MB/s vcsw/msg=0.11585
+shm_8x65536    shm         64 cli=1 p50=     19.5us p99=     54.8us vcsw/msg=0.994983
+shm_8x65536    shm       1024 cli=1      359.3 MB/s vcsw/msg=0.120827
+shm_8x65536    shm       1024 cli=1 p50=     20.1us p99=     59.9us vcsw/msg=0.991739
+shm_8x65536    shm      16384 cli=1     8582.5 MB/s vcsw/msg=0.238693
+shm_8x65536    shm      16384 cli=1 p50=     22.5us p99=     71.3us vcsw/msg=0.986426
+shm_8x65536    shm    1048576 cli=1    30967.6 MB/s vcsw/msg=0.170767
+shm_8x65536    shm    1048576 cli=1 p50=    101.6us p99=    315.4us vcsw/msg=1.10175
+shm_64x8192    shm         64 cli=1      183.4 MB/s vcsw/msg=0.000626661
+shm_64x8192    shm         64 cli=1 p50=     20.0us p99=     58.5us vcsw/msg=0.990785
+shm_64x8192    shm       1024 cli=1     2593.1 MB/s vcsw/msg=0.000419289
+shm_64x8192    shm       1024 cli=1 p50=     20.3us p99=     55.9us vcsw/msg=0.989713
+shm_64x8192    shm      16384 cli=1    18910.6 MB/s vcsw/msg=0.000368378
+shm_64x8192    shm      16384 cli=1 p50=     22.9us p99=     60.2us vcsw/msg=1
+shm_64x8192    shm    1048576 cli=1    23140.6 MB/s vcsw/msg=0.0315806
+shm_64x8192    shm    1048576 cli=1 p50=    111.7us p99=    345.1us vcsw/msg=1.06613
+shm_512x1024   shm         64 cli=1      207.7 MB/s vcsw/msg=3.20405e-05
+shm_512x1024   shm         64 cli=1 p50=     19.3us p99=     51.8us vcsw/msg=0.986081
+shm_512x1024   shm       1024 cli=1     3124.8 MB/s vcsw/msg=2.65557e-05
+shm_512x1024   shm       1024 cli=1 p50=     20.5us p99=     57.9us vcsw/msg=0.987061
+shm_512x1024   shm      16384 cli=1     4465.0 MB/s vcsw/msg=0.00276693
+shm_512x1024   shm      16384 cli=1 p50=     22.8us p99=     66.8us vcsw/msg=1.00352
+shm_512x1024   shm    1048576 cli=1     4108.6 MB/s vcsw/msg=0.604566
+shm_512x1024   shm    1048576 cli=1 p50=    476.2us p99=    794.2us vcsw/msg=4.34761
+shm_2048x256   shm         64 cli=1      259.8 MB/s vcsw/msg=3.6272e-05
+shm_2048x256   shm         64 cli=1 p50=     20.8us p99=     58.1us vcsw/msg=0.995277
+shm_2048x256   shm       1024 cli=1     1188.3 MB/s vcsw/msg=0.00240368
+shm_2048x256   shm       1024 cli=1 p50=     19.8us p99=     58.8us vcsw/msg=1.00208
+shm_2048x256   shm      16384 cli=1     1274.3 MB/s vcsw/msg=0.0108395
+shm_2048x256   shm      16384 cli=1 p50=     26.7us p99=     75.0us vcsw/msg=0.983881
+shm_2048x256   shm    1048576 cli=1     1399.6 MB/s vcsw/msg=0.788671
+shm_2048x256   shm    1048576 cli=1 p50=   1498.2us p99=   2127.1us vcsw/msg=6.73762
+== C. message queue 깊이 (클라이언트 1개)
+mq_depth1      mq          64 cli=1        7.3 MB/s vcsw/msg=0.333634
+mq_depth1      mq     1048576 cli=1      941.5 MB/s vcsw/msg=43.1596
+mq_depth5      mq          64 cli=1       18.9 MB/s vcsw/msg=0.134011
+mq_depth5      mq     1048576 cli=1     3116.2 MB/s vcsw/msg=17.7901
+mq_depth10     mq          64 cli=1       41.4 MB/s vcsw/msg=0.0491282
+mq_depth10     mq     1048576 cli=1     5030.0 MB/s vcsw/msg=15.4646
+
+## 왕복 지연 p50 (us)
+     size cli       pipe         mq        shm  순위
+       64   1       24.8       22.6       20.0  shm>mq>pipe
+       64   2       26.6       29.0       26.2  shm>pipe>mq
+       64   4       31.9       32.0       31.3  shm>pipe>mq
+       64   8       38.6       38.6       37.2  shm>mq>pipe
+     1024   1       21.6       23.4       20.3  shm>pipe>mq
+     1024   2       24.8       27.1       26.3  pipe>shm>mq
+     1024   4       32.0       32.4       31.4  shm>pipe>mq
+     1024   8       38.8       39.5       37.6  shm>pipe>mq
+    16384   1       27.5       29.1       23.3  shm>pipe>mq
+    16384   2       34.2       36.8       30.5  shm>pipe>mq
+    16384   4       40.6       41.4       35.8  shm>pipe>mq
+    16384   8       48.5       50.2       42.8  shm>pipe>mq
+   262144   1      259.5      237.8       45.5  shm>mq>pipe
+   262144   2      334.2      253.2       52.0  shm>mq>pipe
+   262144   4      373.8      273.2       66.1  shm>mq>pipe
+   262144   8      441.0      291.3       80.6  shm>mq>pipe
+  1048576   1     1228.3      919.6      115.5  shm>mq>pipe
+  1048576   2     1289.5      800.0      123.1  shm>mq>pipe
+  1048576   4     1483.4      742.8      167.5  shm>mq>pipe
+  1048576   8     1931.5      947.0      319.5  shm>mq>pipe
+
+## 왕복 지연 p99 (us)
+     size cli       pipe         mq        shm  순위
+       64   1       73.5       65.1       58.7  shm>mq>pipe
+       64   2       59.9       60.4       60.0  pipe>shm>mq
+       64   4       50.8       50.6       48.5  shm>mq>pipe
+       64   8       67.5       67.3       66.8  shm>mq>pipe
+     1024   1       74.5       66.2       64.2  shm>mq>pipe
+     1024   2       62.4       60.4       58.9  shm>mq>pipe
+     1024   4       52.3       50.7       50.6  shm>mq>pipe
+     1024   8       69.3       68.7       66.0  shm>mq>pipe
+    16384   1      113.1      100.4       85.0  shm>mq>pipe
+    16384   2       82.6       91.5       75.3  shm>pipe>mq
+    16384   4       67.5       75.6       65.0  shm>pipe>mq
+    16384   8       84.1       92.6       77.6  shm>pipe>mq
+   262144   1      783.9      664.7      221.8  shm>mq>pipe
+   262144   2      686.8      544.5      173.1  shm>mq>pipe
+   262144   4      646.1      527.4      107.6  shm>mq>pipe
+   262144   8      692.8      578.4      170.7  shm>mq>pipe
+  1048576   1     2790.2     2099.6      413.3  shm>mq>pipe
+  1048576   2     2073.3     1618.7      391.1  shm>mq>pipe
+  1048576   4     2070.4     1482.1      387.4  shm>mq>pipe
+  1048576   8     2393.5     1821.3      903.1  shm>mq>pipe
+
+## 합계 처리량 중앙값 (MB/s)
+     size cli       pipe         mq        shm  순위
+       64   1      132.8       18.5      189.4  shm>pipe>mq
+       64   2      267.0       36.2      384.8  shm>pipe>mq
+       64   4      518.5       64.6      951.7  shm>pipe>mq
+       64   8      896.4      180.6     1850.9  shm>pipe>mq
+     1024   1     1225.5      275.0     2531.8  shm>pipe>mq
+     1024   2     2496.0      576.9     5252.9  shm>pipe>mq
+     1024   4     5137.1     1303.3    12630.4  shm>pipe>mq
+     1024   8     9864.6     3750.4    25115.9  shm>pipe>mq
+    16384   1     2132.6     2366.6    18458.4  shm>mq>pipe
+    16384   2     4253.1     5098.3    33766.0  shm>mq>pipe
+    16384   4     9677.9     9704.2    66647.0  shm>mq>pipe
+    16384   8    20296.2    20250.2   113370.2  shm>pipe>mq
+   262144   1     1520.1     2675.0    22489.7  shm>mq>pipe
+   262144   2     2700.8     6280.6    44669.0  shm>mq>pipe
+   262144   4     5750.7    12355.2    76651.6  shm>mq>pipe
+   262144   8    10355.5    24848.8   114265.9  shm>mq>pipe
+  1048576   1     1593.3     3007.1    22765.6  shm>mq>pipe
+  1048576   2     2738.1     6633.3    44087.7  shm>mq>pipe
+  1048576   4     5323.4    12918.0    75403.7  shm>mq>pipe
+  1048576   8     9004.5    23491.9    99049.1  shm>mq>pipe
+완료: results/phase1
+EXIT=0

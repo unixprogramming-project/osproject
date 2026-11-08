@@ -1,0 +1,59 @@
+== A. 코어 유휴 진입 (왕복 지연)
+base           pipe        64 cli=1 p50=     19.9us p99=     55.4us vcsw/msg=0.999524
+same_cpu       pipe        64 cli=1 p50=      2.3us p99=      2.7us vcsw/msg=0.722612
+busy_cpus      pipe        64 cli=1 p50=      2.6us p99=      4.3us vcsw/msg=0.734312
+base           pipe     16384 cli=1 p50=     28.1us p99=     95.9us vcsw/msg=0.999735
+same_cpu       pipe     16384 cli=1 p50=      5.6us p99=      6.7us vcsw/msg=0.832853
+busy_cpus      pipe     16384 cli=1 p50=      6.0us p99=      9.8us vcsw/msg=0.838941
+base           mq          64 cli=1 p50=     19.9us p99=     51.7us vcsw/msg=0.99066
+same_cpu       mq          64 cli=1 p50=      1.9us p99=      2.2us vcsw/msg=0.690435
+busy_cpus      mq          64 cli=1 p50=      2.2us p99=      3.7us vcsw/msg=0.695136
+base           mq       16384 cli=1 p50=     28.1us p99=     90.2us vcsw/msg=1.00683
+same_cpu       mq       16384 cli=1 p50=      6.7us p99=     10.4us vcsw/msg=1.22873
+busy_cpus      mq       16384 cli=1 p50=      7.2us p99=     17.0us vcsw/msg=1.252
+base           shm         64 cli=1 p50=     19.3us p99=     54.7us vcsw/msg=0.99442
+same_cpu       shm         64 cli=1 p50=      1.8us p99=      2.2us vcsw/msg=0.77458
+busy_cpus      shm         64 cli=1 p50=      2.3us p99=      6.0us vcsw/msg=0.829005
+base           shm      16384 cli=1 p50=     22.1us p99=     70.8us vcsw/msg=1.00085
+same_cpu       shm      16384 cli=1 p50=      3.5us p99=      6.8us vcsw/msg=1.37623
+busy_cpus      shm      16384 cli=1 p50=      3.9us p99=     10.5us vcsw/msg=1.29958
+== B. shared memory 슬롯 구성 (총용량 약 512KB)
+shm_8x65536    shm         64 cli=1       21.9 MB/s vcsw/msg=0.11585
+shm_8x65536    shm         64 cli=1 p50=     19.5us p99=     54.8us vcsw/msg=0.994983
+shm_8x65536    shm       1024 cli=1      359.3 MB/s vcsw/msg=0.120827
+shm_8x65536    shm       1024 cli=1 p50=     20.1us p99=     59.9us vcsw/msg=0.991739
+shm_8x65536    shm      16384 cli=1     8582.5 MB/s vcsw/msg=0.238693
+shm_8x65536    shm      16384 cli=1 p50=     22.5us p99=     71.3us vcsw/msg=0.986426
+shm_8x65536    shm    1048576 cli=1    30967.6 MB/s vcsw/msg=0.170767
+shm_8x65536    shm    1048576 cli=1 p50=    101.6us p99=    315.4us vcsw/msg=1.10175
+shm_64x8192    shm         64 cli=1      183.4 MB/s vcsw/msg=0.000626661
+shm_64x8192    shm         64 cli=1 p50=     20.0us p99=     58.5us vcsw/msg=0.990785
+shm_64x8192    shm       1024 cli=1     2593.1 MB/s vcsw/msg=0.000419289
+shm_64x8192    shm       1024 cli=1 p50=     20.3us p99=     55.9us vcsw/msg=0.989713
+shm_64x8192    shm      16384 cli=1    18910.6 MB/s vcsw/msg=0.000368378
+shm_64x8192    shm      16384 cli=1 p50=     22.9us p99=     60.2us vcsw/msg=1
+shm_64x8192    shm    1048576 cli=1    23140.6 MB/s vcsw/msg=0.0315806
+shm_64x8192    shm    1048576 cli=1 p50=    111.7us p99=    345.1us vcsw/msg=1.06613
+shm_512x1024   shm         64 cli=1      207.7 MB/s vcsw/msg=3.20405e-05
+shm_512x1024   shm         64 cli=1 p50=     19.3us p99=     51.8us vcsw/msg=0.986081
+shm_512x1024   shm       1024 cli=1     3124.8 MB/s vcsw/msg=2.65557e-05
+shm_512x1024   shm       1024 cli=1 p50=     20.5us p99=     57.9us vcsw/msg=0.987061
+shm_512x1024   shm      16384 cli=1     4465.0 MB/s vcsw/msg=0.00276693
+shm_512x1024   shm      16384 cli=1 p50=     22.8us p99=     66.8us vcsw/msg=1.00352
+shm_512x1024   shm    1048576 cli=1     4108.6 MB/s vcsw/msg=0.604566
+shm_512x1024   shm    1048576 cli=1 p50=    476.2us p99=    794.2us vcsw/msg=4.34761
+shm_2048x256   shm         64 cli=1      259.8 MB/s vcsw/msg=3.6272e-05
+shm_2048x256   shm         64 cli=1 p50=     20.8us p99=     58.1us vcsw/msg=0.995277
+shm_2048x256   shm       1024 cli=1     1188.3 MB/s vcsw/msg=0.00240368
+shm_2048x256   shm       1024 cli=1 p50=     19.8us p99=     58.8us vcsw/msg=1.00208
+shm_2048x256   shm      16384 cli=1     1274.3 MB/s vcsw/msg=0.0108395
+shm_2048x256   shm      16384 cli=1 p50=     26.7us p99=     75.0us vcsw/msg=0.983881
+shm_2048x256   shm    1048576 cli=1     1399.6 MB/s vcsw/msg=0.788671
+shm_2048x256   shm    1048576 cli=1 p50=   1498.2us p99=   2127.1us vcsw/msg=6.73762
+== C. message queue 깊이 (클라이언트 1개)
+mq_depth1      mq          64 cli=1        7.3 MB/s vcsw/msg=0.333634
+mq_depth1      mq     1048576 cli=1      941.5 MB/s vcsw/msg=43.1596
+mq_depth5      mq          64 cli=1       18.9 MB/s vcsw/msg=0.134011
+mq_depth5      mq     1048576 cli=1     3116.2 MB/s vcsw/msg=17.7901
+mq_depth10     mq          64 cli=1       41.4 MB/s vcsw/msg=0.0491282
+mq_depth10     mq     1048576 cli=1     5030.0 MB/s vcsw/msg=15.4646

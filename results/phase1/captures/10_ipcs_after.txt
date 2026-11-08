@@ -1,0 +1,21 @@
+== ipcs
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems     
+
+== POSIX message queue (/dev/mqueue)
+total 0
+drwxrwxrwt  2 root root   40 Nov  8 18:12 .
+drwxr-xr-x 15 root root 3860 Nov  8 18:12 ..
+== POSIX shared memory (/dev/shm)
+total 0
+drwxrwxrwt  2 root root   40 Nov  8 18:12 .
+drwxr-xr-x 15 root root 3860 Nov  8 18:12 ..
+== FIFO (/tmp/osproject_*)
+없음
