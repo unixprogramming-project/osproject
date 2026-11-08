@@ -15,7 +15,7 @@ mkdir -p "$OUT"
 CSV=$OUT/phase2.csv
 make -s -C "$ROOT" apps || exit 1
 "$ROOT/scripts/collect_env.sh" >"$OUT/env.txt" 2>&1
-echo "APP_WORKERS=${APP_WORKERS:-4} APP_CACHE_MB=${APP_CACHE_MB:-64} IPC_SHM_SLOTS=${IPC_SHM_SLOTS:-default} IPC_SHM_SLOT_SIZE=${IPC_SHM_SLOT_SIZE:-default}" >>"$OUT/env.txt"
+echo "APP_SENDER=${APP_SENDER:-direct} APP_WORKERS=${APP_WORKERS:-4} APP_CACHE_MB=${APP_CACHE_MB:-64} IPC_SHM_SLOTS=${IPC_SHM_SLOTS:-default} IPC_SHM_SLOT_SIZE=${IPC_SHM_SLOT_SIZE:-default}" >>"$OUT/env.txt"
 git -C "$ROOT" rev-parse --short HEAD >>"$OUT/env.txt" 2>/dev/null
 
 # 1. 내용 검증 (실패하면 측정하지 않는다)

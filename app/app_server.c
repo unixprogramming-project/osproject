@@ -14,6 +14,10 @@
  *  - 시작 장벽: mutex + 조건 변수.
  *  - 통계: 워커별로 따로 세고 종료 때 합산 (측정 중 공유 쓰기 없음).
  *  잠금 순서: 캐시 잠금과 송신 잠금을 겹쳐 잡지 않는다 (교착 상태 방지).
+ *
+ * 설계 개선 v2 (--sender thread): 클라이언트별 송신 스레드 + 송신 큐(mutex + 조건 변수 2개)를 둔다.
+ *  워커는 응답을 송신 큐에 넣고 바로 다음 작업으로 간다. v1 측정에서 워커가 느린 전송과 송신 잠금에
+ *  묶여 작업 큐 대기가 지연의 대부분이었기 때문이다. 송신 큐 잠금과 캐시 잠금도 겹쳐 잡지 않는다.
  */
 #include "app_common.h"
 #include "common.h"
@@ -170,7 +174,8 @@ static long cache_evict_locked(void)
 typedef struct {
     ipc_chan_t *ch;
     pthread_mutex_t send_mu;
-    int id, failed;
+    int id, failed; /* failed: 수신 스레드만 쓴다 */
+    int send_failed; /* 송신 스레드만 쓴다 (v2) */
 } client_t;
 
 typedef struct {
@@ -183,6 +188,25 @@ static ipc_cfg_t g_cfg;
 static int g_clients;
 static client_t g_cl[MAX_CLIENTS];
 static uint8_t *g_images[N_IMAGES];
+static int g_sender_thread; /* 0: 워커가 직접 전송 (v1), 1: 클라이언트별 송신 스레드 (설계 개선 v2) */
+
+/* ---------- 설계 개선 v2: 클라이언트별 송신 큐 ----------
+ * 워커는 응답(헤더 + 캐시 항목 참조)을 큐에 넣고 바로 다음 작업으로 간다.
+ * 송신 스레드가 실제 IPC 전송을 하므로 느린 전송이 워커를 붙잡지 않는다.
+ * 큐: mutex + 조건 변수 2개 (생산자 워커 여럿, 소비자 송신 스레드 1). 항목 참조는 큐가 들고 있다가 송신 뒤 해제. */
+#define SENDQ_CAP 16
+typedef struct {
+    resp_hdr_t h;
+    entry_t *e; /* NULL이면 헤더만 */
+} sendjob_t;
+typedef struct {
+    sendjob_t buf[SENDQ_CAP];
+    int head, count, closed;
+    pthread_mutex_t mu;
+    pthread_cond_t not_empty, not_full;
+    pthread_t tid;
+} sendq_t;
+static sendq_t g_sq[MAX_CLIENTS];
 
 static struct {
     int hello;
@@ -210,6 +234,70 @@ static int send_locked(client_t *c, const void *a, size_t alen, const void *b, s
     else if (b && ipc_send(c->ch, b, blen) == -1)
         rc = -1;
     return rc;
+}
+
+/* 참조 해제. 전송 중 축출된 항목은 마지막 참조가 해제한다 */
+static void entry_release(entry_t *e)
+{
+    pthread_mutex_lock(&cache.mu);
+    int free_it = (--e->refs == 0 && e->evicted);
+    pthread_mutex_unlock(&cache.mu);
+    if (free_it)
+        entry_free(e);
+}
+
+/* 큐가 차면 기다린다 (클라이언트가 느리면 워커에 역압). 기다린 시간을 돌려준다 */
+static uint64_t sendq_push(sendq_t *q, const resp_hdr_t *h, entry_t *e)
+{
+    uint64_t t0 = now_ns(), waited;
+    pthread_mutex_lock(&q->mu);
+    while (q->count == SENDQ_CAP)
+        pthread_cond_wait(&q->not_full, &q->mu);
+    waited = now_ns() - t0;
+    q->buf[(q->head + q->count) % SENDQ_CAP] = (sendjob_t){.h = *h, .e = e};
+    q->count++;
+    pthread_cond_signal(&q->not_empty);
+    pthread_mutex_unlock(&q->mu);
+    return waited;
+}
+
+static void *sender_main(void *arg)
+{
+    client_t *c = arg;
+    sendq_t *q = &g_sq[c->id];
+    for (;;) {
+        pthread_mutex_lock(&q->mu);
+        while (q->count == 0 && !q->closed)
+            pthread_cond_wait(&q->not_empty, &q->mu);
+        if (q->count == 0) {
+            pthread_mutex_unlock(&q->mu);
+            break;
+        }
+        sendjob_t j = q->buf[q->head];
+        q->head = (q->head + 1) % SENDQ_CAP;
+        q->count--;
+        pthread_cond_signal(&q->not_full);
+        pthread_mutex_unlock(&q->mu);
+
+        pthread_mutex_lock(&c->send_mu); /* 수신 스레드의 START/BYE 확인과 섞이지 않게 */
+        int rc = send_locked(c, &j.h, sizeof j.h, j.e ? j.e->data : NULL, j.e ? j.e->len : 0);
+        pthread_mutex_unlock(&c->send_mu);
+        if (rc == -1) {
+            fprintf(stderr, "server: send %d: %s\n", c->id, strerror(errno));
+            c->send_failed = 1; /* 실패해도 큐는 계속 비운다 (워커가 꽉 찬 큐에서 막히지 않게) */
+        }
+        if (j.e)
+            entry_release(j.e);
+    }
+    return NULL;
+}
+
+static void sendq_close(sendq_t *q)
+{
+    pthread_mutex_lock(&q->mu);
+    q->closed = 1;
+    pthread_cond_broadcast(&q->not_empty);
+    pthread_mutex_unlock(&q->mu);
 }
 
 static void *receiver_main(void *arg)
@@ -277,6 +365,10 @@ static void *worker_main(void *arg)
         if (r->image_id >= N_IMAGES || r->filter >= N_FILTERS) {
             h.status = 1;
             client_t *c = &g_cl[j.client];
+            if (g_sender_thread) {
+                w->send_wait_ns += sendq_push(&g_sq[j.client], &h, NULL);
+                continue;
+            }
             pthread_mutex_lock(&c->send_mu);
             if (send_locked(c, &h, sizeof h, NULL, 0) == -1)
                 w->failed = 1;
@@ -341,6 +433,11 @@ static void *worker_main(void *arg)
         /* 3. 응답 전송 (캐시 잠금 밖, 클라이언트별 송신 잠금 안) */
         h.len = (uint32_t)e->len;
         client_t *c = &g_cl[j.client];
+        if (g_sender_thread) { /* v2: 송신 스레드에 넘기고 끝. 참조는 송신 스레드가 해제 */
+            w->send_wait_ns += sendq_push(&g_sq[j.client], &h, e);
+            w->bytes += e->len;
+            continue;
+        }
         uint64_t ts = now_ns();
         pthread_mutex_lock(&c->send_mu);
         w->send_wait_ns += now_ns() - ts;
@@ -352,11 +449,7 @@ static void *worker_main(void *arg)
         w->bytes += e->len;
 
         /* 4. 참조 해제. 전송 중 축출된 항목은 마지막 참조가 해제한다 */
-        pthread_mutex_lock(&cache.mu);
-        int free_it = (--e->refs == 0 && e->evicted);
-        pthread_mutex_unlock(&cache.mu);
-        if (free_it)
-            entry_free(e);
+        entry_release(e);
         /* 전송 실패해도 큐는 계속 비운다. 멈추면 수신 스레드가 꽉 찬 큐에서 영원히 기다린다 */
     }
     return NULL;
@@ -364,7 +457,7 @@ static void *worker_main(void *arg)
 
 static void usage(void)
 {
-    fprintf(stderr, "usage: app_server --clients N [--workers W] [--cache-mb M] [--team T]\n"
+    fprintf(stderr, "usage: app_server --clients N [--workers W] [--cache-mb M] [--team T] [--sender direct|thread]\n"
                     "                  [--csv F --rep R --hit H] [--cleanup-only]\n");
     exit(2);
 }
@@ -387,6 +480,11 @@ int main(int argc, char **argv)
         else if (strcmp(a, "--csv") == 0) csv = v;
         else if (strcmp(a, "--rep") == 0) rep = atoi(v);
         else if (strcmp(a, "--hit") == 0) hit = atoi(v);
+        else if (strcmp(a, "--sender") == 0) {
+            if (strcmp(v, "direct") == 0) g_sender_thread = 0;
+            else if (strcmp(v, "thread") == 0) g_sender_thread = 1;
+            else usage();
+        }
         else usage();
     }
     if (cleanup_only) {
@@ -436,6 +534,13 @@ int main(int argc, char **argv)
     pthread_t *wt = calloc((size_t)workers, sizeof *wt), rt[MAX_CLIENTS];
     if (!w || !wt)
         die("calloc");
+    for (int i = 0; g_sender_thread && i < clients; i++) {
+        pthread_mutex_init(&g_sq[i].mu, NULL);
+        pthread_cond_init(&g_sq[i].not_empty, NULL);
+        pthread_cond_init(&g_sq[i].not_full, NULL);
+        if ((errno = pthread_create(&g_sq[i].tid, NULL, sender_main, &g_cl[i])) != 0)
+            die("pthread_create sender");
+    }
     for (int i = 0; i < workers; i++) {
         w[i].id = i;
         if ((errno = pthread_create(&wt[i], NULL, worker_main, &w[i])) != 0)
@@ -459,6 +564,11 @@ int main(int argc, char **argv)
         sum.evictions += w[i].evictions; sum.bytes += w[i].bytes;
         sum.lock_wait_ns += w[i].lock_wait_ns; sum.queue_wait_ns += w[i].queue_wait_ns;
         sum.send_wait_ns += w[i].send_wait_ns; sum.filter_ns += w[i].filter_ns;
+    }
+    for (int i = 0; g_sender_thread && i < clients; i++) { /* 워커가 끝난 뒤 송신 큐를 닫고 남은 응답을 다 보낸다 */
+        sendq_close(&g_sq[i]);
+        pthread_join(g_sq[i].tid, NULL);
+        failed |= g_cl[i].send_failed;
     }
     long rss_after = read_vm_kb("VmRSS");
     long rss_peak = read_vm_kb("VmHWM");
