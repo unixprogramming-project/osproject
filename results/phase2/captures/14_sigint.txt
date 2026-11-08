@@ -1,0 +1,4 @@
+osproject_3_c0_shm
+osproject_3_c1_shm
+server exit=130 (128+SIGINT)
+0

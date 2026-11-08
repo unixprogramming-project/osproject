@@ -1,0 +1,11 @@
+rm -rf build
+0
+make: Nothing to be done for 'app_pipe'.
+make: Nothing to be done for 'app_shm'.
+app_client.o
+app_common.o
+app_pipe_client
+app_pipe_server
+app_server.o
+app_shm_client
+app_shm_server

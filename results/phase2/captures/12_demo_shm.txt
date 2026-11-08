@@ -1,0 +1,37 @@
+## 1. 서버 실행: app_shm_server --clients 2 --workers 4 --sender thread --team 3
+## 2. 클라이언트 2개 동시 실행 (별도 프로세스, 적중 80%, 3초 측정, 응답 내용 검증)
+## 3. 실행 중 프로세스별 스레드 수 (/proc/PID/task 항목 수, main 포함)
+PID      이름                 스레드수
+1344     app_shm_server         10
+1355     app_shm_client         4
+1356     app_shm_client         4
+## 4. 실행 중 IPC 자원
+-rw------- 1 root root 1056960 Nov  8 19:47 osproject_3_c0_shm
+-rw------- 1 root root 1056960 Nov  8 19:47 osproject_3_c1_shm
+server exit=0
+## 5. 결과 (클라이언트별: 3초 동안 끝낸 요청, 처리량, 지연, 잘못된 응답 수)
+client 0: 요청 4844건, 1615 요청/s, 409.2 MB/s, p50 72.9 us, p99 1420.5 us, 잘못된 응답 0
+server: 처리 11275건 (적중 9089, 미스 2186), 최대 RSS 107.4 MB
+client 1: 요청 4920건, 1640 요청/s, 412.5 MB/s, p50 73.1 us, p99 997.2 us, 잘못된 응답 0
+## 6. 종료 후 남은 IPC 자원 확인
+== ipcs
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems     
+
+== POSIX message queue (/dev/mqueue)
+total 0
+drwxrwxrwt  2 root root   40 Nov  8 19:44 .
+drwxr-xr-x 15 root root 3860 Nov  8 19:44 ..
+== POSIX shared memory (/dev/shm)
+total 0
+drwxrwxrwt  2 root root   40 Nov  8 19:47 .
+drwxr-xr-x 15 root root 3860 Nov  8 19:44 ..
+== FIFO (/tmp/osproject_*)
+없음
