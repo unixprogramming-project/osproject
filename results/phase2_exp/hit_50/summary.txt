@@ -1,0 +1,56 @@
+
+## 처리량 중앙값 (MB/s)
+ hit cli       pipe        shm   shm/pipe
+  50   4     2630.4     8997.2       3.42
+
+## 처리량 중앙값 (요청/s)
+ hit cli       pipe        shm   shm/pipe
+  50   4      10223      34812       3.41
+
+## 요청 지연 p50 (us)
+ hit cli       pipe        shm   shm/pipe
+  50   4     1430.2      355.2       0.25
+
+## 요청 지연 p99 (us)
+ hit cli       pipe        shm   shm/pipe
+  50   4     3776.1     1822.4       0.48
+
+## 캐시 적중률
+ hit cli       pipe        shm   shm/pipe
+  50   4      0.499      0.498       1.00
+
+## 요청당 캐시 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  50   4       0.15       0.27       1.75
+
+## 요청당 작업 큐 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  50   4     1135.7      294.4       0.26
+
+## 요청당 송신 잠금 대기 (us)
+ hit cli       pipe        shm   shm/pipe
+  50   4      113.2        4.9       0.04
+
+## 미스당 필터 연산 (us)
+ hit cli       pipe        shm   shm/pipe
+  50   4      180.2      179.0       0.99
+
+## 서버 sys CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  50   4      281.3       34.5       0.12
+
+## 서버 user CPU (us/MB)
+ hit cli       pipe        shm   shm/pipe
+  50   4      351.2      395.9       1.13
+
+## 서버 자발적 CS (회/요청)
+ hit cli       pipe        shm   shm/pipe
+  50   4       4.95       0.85       0.17
+
+## 서버 최대 RSS (KB)
+ hit cli       pipe        shm   shm/pipe
+  50   4     110336     115980       1.05
+
+## 클라 CPU (us/요청)
+ hit cli       pipe        shm   shm/pipe
+  50   4       98.4       34.4       0.35

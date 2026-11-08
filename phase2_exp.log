@@ -1,0 +1,13 @@
+workers_1: done: 20 failed: 0
+workers_2: done: 20 failed: 0
+workers_4: done: 20 failed: 0
+workers_8: done: 20 failed: 0
+workers_16: done: 20 failed: 0
+hit_0: done: 20 failed: 0
+hit_20: done: 20 failed: 0
+hit_50: done: 20 failed: 0
+hit_80: done: 20 failed: 0
+hit_100: done: 20 failed: 0
+window_1: done: 20 failed: 0
+window_4: done: 20 failed: 0
+완료: results/phase2_exp
