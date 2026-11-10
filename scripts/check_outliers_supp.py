@@ -16,7 +16,9 @@ def plan_times(d):
     step = (end - start) / len(plan)
     return plan, start, step
 tot = flagged = 0
-for d, kind in (("s1_buffer", 1), ("s2_sender", 2), ("s3_workers", 2), ("s4_ring", 2)):
+DIRS = [(d, k) for d, k in (("s1_buffer", 1), ("s2_sender", 2), ("s3_workers", 2), ("s4_ring", 2), ("s5_size", 2))
+        if os.path.isdir(f"{R}/{d}")]  # 있는 실험 폴더만 (S5는 results/supp_s5에 따로 있다)
+for d, kind in DIRS:
     plan, start, step = plan_times(d)
     labels = sorted({p[0] for p in plan})
     for lb in labels:
@@ -50,7 +52,7 @@ for d, kind in (("s1_buffer", 1), ("s2_sender", 2), ("s3_workers", 2), ("s4_ring
                         print(f"{d:10} {lb:7} {str(k):32} rep={rep:2} {v:10.1f} med={m:10.1f} z={z:6.1f} ~{t}")
 print("runs", tot, "flagged(MAD x3)", flagged)
 # 이상치 제외 후 중앙값 변화 (2단계 형식)
-for d in ("s2_sender", "s3_workers", "s4_ring"):
+for d in [d for d, k in DIRS if k == 2]:
     for lb in sorted({p[0] for p in plan_times(d)[0]}):
         srv, cli = ss.p2.load(f"{R}/{d}/{lb}.csv")
         for key, cs in cli.items():

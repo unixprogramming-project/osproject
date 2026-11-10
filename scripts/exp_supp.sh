@@ -8,6 +8,8 @@
 #     pipe·shm × 클라 2·4 × 적중 80/20%                    -> v1·v2를 같은 시간대에 비교
 #  S3 워커 수: 8, 12, 14, 16 (shm, 클라 4, 적중 80%, v1)   -> 워커 16 처리량 하락 원인
 #  S4 응용 shm 링: 64슬롯(기본) / 16슬롯 (v2, 클라 8, 적중 80/20%) -> IPC 쪽 메모리 절감
+#  S5 응답 크기 고정 (2026-11-11 추가, 기본 목록에는 없음): 분포대로(mix) / 16KB / 256KB / 1MB
+#     pipe·shm × 클라 8 × 적중 80%, v1 (APP_SIZE_CLASS)      -> 서버 CS·sys가 응답 크기에 따라 어떻게 바뀌는지 (P5·P6)
 # 출력: <폴더>/<실험>/<조건라벨>.csv (조건마다 파일 하나, 형식은 본측정 CSV와 같다), plan.txt, run.log, errors.log, env.txt
 set -u
 OUT=${1:?usage: exp_supp.sh <out-dir> [reps]}
@@ -125,9 +127,22 @@ s4() {
     run_plan "$dir" p2
 }
 
+s5() {
+    local dir=$OUT/s5_size
+    begin s5_size "응답 크기 고정: mix / 16KB / 256KB / 1MB (pipe·shm, 클라 8, 적중 80%, sender direct)"
+    local V="mix:- sz16:APP_SIZE_CLASS=16 sz256:APP_SIZE_CLASS=256 sz1024:APP_SIZE_CLASS=1024"
+    for v in $V; do IFS=: read -r label envs <<<"$v"; for ipc in pipe shm; do
+        verify_p2 "$dir" "$label" "$envs" "$ipc" 2 || return 1
+    done; done
+    for r in $(seq 1 "$REPS"); do for v in $V; do IFS=: read -r label envs <<<"$v"; for ipc in pipe shm; do
+        echo "$label $envs $ipc 8 80 $r"
+    done; done; done | shuffle 20261114 >"$dir/plan.txt"
+    run_plan "$dir" p2
+}
+
 for e in ${SUPP:-S1 S2 S3 S4}; do
     case $e in
-        S1) s1 ;; S2) s2 ;; S3) s3 ;; S4) s4 ;;
+        S1) s1 ;; S2) s2 ;; S3) s3 ;; S4) s4 ;; S5) s5 ;;
         *) echo "모르는 실험: $e" >&2 ;;
     esac
 done

@@ -43,6 +43,7 @@ typedef struct {
     uint64_t x;
     uint32_t client_id, seq;
     int hit_pct; /* 인기 키에서 고를 확률 (%) */
+    int size_class; /* -1: 크기 분포대로 (기본). 0/1/2: 16KB/256KB/1MB 구간만 (환경 변수 APP_SIZE_CLASS, 보충 실험 S5) */
 } reqgen_t;
 void reqgen_init(reqgen_t *g, uint64_t seed, uint32_t client_id, int hit_pct);
 void reqgen_next(reqgen_t *g, req_msg_t *m);

@@ -1,5 +1,7 @@
 #include "app_common.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int image_side(uint32_t id)
@@ -71,6 +73,16 @@ void reqgen_init(reqgen_t *g, uint64_t seed, uint32_t client_id, int hit_pct)
     g->client_id = client_id;
     g->seq = 0;
     g->hit_pct = hit_pct;
+    g->size_class = -1;
+    const char *s = getenv("APP_SIZE_CLASS"); /* 응답 크기 구간 고정: 16, 256, 1024 (KB) */
+    if (s && *s) {
+        int kb = atoi(s);
+        g->size_class = kb == 16 ? 0 : kb == 256 ? 1 : kb == 1024 ? 2 : -2;
+        if (g->size_class == -2) {
+            fprintf(stderr, "APP_SIZE_CLASS must be 16, 256 or 1024\n");
+            exit(2);
+        }
+    }
 }
 
 /*
@@ -82,6 +94,8 @@ void reqgen_next(reqgen_t *g, req_msg_t *m)
 {
     memset(m, 0, sizeof *m);
     uint32_t r = rnd(g) % 100, base, count;
+    if (g->size_class >= 0) /* 구간 고정: 난수는 그대로 소비해 나머지 요청열(적중 여부 등)은 기본과 같게 둔다 */
+        r = g->size_class == 0 ? 0 : g->size_class == 1 ? 50 : 85;
     if (r < 50) { base = 0; count = 32; }
     else if (r < 85) { base = 32; count = 20; }
     else { base = 52; count = 12; }

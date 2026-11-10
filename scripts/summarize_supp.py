@@ -138,6 +138,9 @@ def load_p2(path):
             out[key]["lock_us"].append(r["lock_wait_ns"] / jobs / 1e3)
             out[key]["hit_ratio"].append(r["hits"] / jobs)
             out[key]["cpu_us_per_mb"].append((r["user_us"] + r["sys_us"]) / max(r["bytes"] / 1e6, 1e-9))
+            out[key]["sys_us_per_mb"].append(r["sys_us"] / max(r["bytes"] / 1e6, 1e-9))
+            out[key]["sys_us_per_req"].append(r["sys_us"] / jobs)
+            out[key]["mb_per_req"].append(r["bytes"] / 1e6 / jobs)
     return out
 
 
@@ -203,12 +206,39 @@ def report_s4(d):
                 ("nvcsw", "서버 자발적 CS (회/요청)", "{:.2f}"), ("hit_ratio", "실제 적중률", "{:.3f}")])
 
 
+def report_s5(d):
+    labels = ["mix", "sz16", "sz256", "sz1024"]
+    data = {lb: load_p2(os.path.join(d, lb + ".csv")) for lb in labels}
+    if not any(data.values()):
+        return
+    print("\n# S5 응답 크기 고정 (클라 8, 적중 80%, direct). 서버 값은 요청당·MB당, 회차 중앙값")
+    print(f"{'ipc':>5} {'크기':>7} {'runs':>4} {'MB/s':>8} {'p50us':>7} {'MB/요청':>8} {'자발CS':>7} {'비자발CS':>8} "
+          f"{'sys/요청':>9} {'sys/MB':>8} {'CPU/MB':>8} {'적중률':>6}")
+    for ipc in ("pipe", "shm"):
+        for lb in labels:
+            for k, v in data[lb].items():
+                if k[0] != ipc:
+                    continue
+                print(f"{ipc:>5} {lb:>7} {len(v['mbps']):>4} {med(v['mbps']):8.0f} {med(v['p50']):7.0f} "
+                      f"{med(v['mb_per_req']):8.3f} {med(v['nvcsw']):7.2f} {med(v['nivcsw']):8.3f} "
+                      f"{med(v['sys_us_per_req']):9.1f} {med(v['sys_us_per_mb']):8.1f} {med(v['cpu_us_per_mb']):8.1f} "
+                      f"{med(v['hit_ratio']):6.3f}")
+    print("\npipe/shm 배수 (서버 sys/MB, 자발적 CS/요청), p = Mann-Whitney (sys/MB)")
+    for lb in labels:
+        a = next((v for k, v in data[lb].items() if k[0] == "pipe"), None)
+        b = next((v for k, v in data[lb].items() if k[0] == "shm"), None)
+        if a and b:
+            print(f"{lb:>7} sys/MB {med(a['sys_us_per_mb']) / med(b['sys_us_per_mb']):6.2f}배 "
+                  f"(p {pstr(mwu(a['sys_us_per_mb'], b['sys_us_per_mb']))})  CS {med(a['nvcsw']) / med(b['nvcsw']):6.2f}배")
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
         return 2
     root = sys.argv[1]
-    for sub, fn in (("s1_buffer", report_s1), ("s2_sender", report_s2), ("s3_workers", report_s3), ("s4_ring", report_s4)):
+    for sub, fn in (("s1_buffer", report_s1), ("s2_sender", report_s2), ("s3_workers", report_s3), ("s4_ring", report_s4),
+                    ("s5_size", report_s5)):
         d = os.path.join(root, sub)
         if os.path.isdir(d):
             fn(d)
