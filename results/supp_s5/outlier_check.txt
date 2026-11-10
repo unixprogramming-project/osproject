@@ -1,0 +1,17 @@
+s5_size    mix     ('pipe', 8, 80)                  rep=26     2624.3 med=    3313.1 z= -11.5 ~01:01:53
+s5_size    mix     ('pipe', 8, 80)                  rep= 8     3068.1 med=    3313.1 z=  -4.1 ~01:02:39
+s5_size    mix     ('pipe', 8, 80)                  rep=29     3079.6 med=    3313.1 z=  -3.9 ~01:04:01
+s5_size    mix     ('pipe', 8, 80)                  rep=14     2852.9 med=    3313.1 z=  -7.7 ~01:05:40
+s5_size    mix     ('pipe', 8, 80)                  rep=25     2874.2 med=    3313.1 z=  -7.3 ~01:06:51
+s5_size    mix     ('pipe', 8, 80)                  rep=10     2909.0 med=    3313.1 z=  -6.7 ~01:07:41
+s5_size    mix     ('pipe', 8, 80)                  rep=28     2997.7 med=    3313.1 z=  -5.3 ~01:09:24
+s5_size    mix     ('shm', 8, 80)                   rep=13    14797.8 med=   16184.1 z=  -6.0 ~01:01:49
+s5_size    mix     ('shm', 8, 80)                   rep=28    15444.6 med=   16184.1 z=  -3.2 ~01:05:19
+s5_size    sz1024  ('shm', 8, 80)                   rep=18    17556.7 med=   19131.5 z= -14.1 ~01:01:35
+s5_size    sz1024  ('pipe', 8, 80)                  rep=29     3778.2 med=    3962.2 z=  -4.0 ~01:01:24
+s5_size    sz1024  ('pipe', 8, 80)                  rep= 3     3588.4 med=    3962.2 z=  -8.1 ~01:01:56
+s5_size    sz1024  ('pipe', 8, 80)                  rep=23     3705.3 med=    3962.2 z=  -5.6 ~01:07:05
+s5_size    sz16    ('pipe', 8, 80)                  rep= 2     3268.2 med=    3912.4 z=  -3.5 ~01:02:00
+s5_size    sz256   ('shm', 8, 80)                   rep= 6    17431.7 med=   18669.0 z=  -3.3 ~01:01:45
+runs 240 flagged(MAD x3) 15
+  median shift s5_size sz16 ('pipe', 8, 80): +0.72% (removed 1)

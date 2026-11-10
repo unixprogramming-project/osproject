@@ -3,7 +3,7 @@ UNIX시스템프로그래밍 설계과제 (3조): 내 응용에 맞는 IPC는 �
 
 [현재 상태]
 1단계 벤치마크(pipe, mq, shm)와 본측정 완료.
-2단계 응용(pipe, shm) 구현, 본측정, 원인 확인 실험, 설계 개선(v2)과 전후 측정, 보충 실험(S1~S4) 완료.
+2단계 응용(pipe, shm) 구현, 본측정, 원인 확인 실험, 설계 개선(v2)과 전후 측정, 보충 실험(S1~S5) 완료.
 
 [실행 환경]
 Linux (Ubuntu 권장, WSL2 가능), gcc, make, python3 (그래프는 python3-matplotlib, 캡처는 fonts-nanum-coding)
@@ -47,6 +47,7 @@ pipe, mq도 같은 옵션을 쓴다. 서버 --clients와 클라이언트 --clien
 보충 실험 (11/10, 비교할 조건을 같은 시간대에 섞어 잼, 조건당 30회, 약 60분)
   TEAM=3 scripts/exp_supp.sh <폴더> [30]      S1 1단계 버퍼 용량, S2 v1·v2 송신 방식, S3 워커 8~16, S4 응용 shm 링 크기
   SUPP="S1 S3" TEAM=3 scripts/exp_supp.sh <폴더>   일부 실험만
+  SUPP=S5 TEAM=3 scripts/exp_supp.sh <폴더> [30]   S5 응답 크기 고정 (11/11 추가, 약 15분, 기본 목록에는 없음)
   scripts/summarize_supp.py <폴더>            실험별 표와 Mann-Whitney U p값
   scripts/check_outliers_supp.py <폴더>       이상값 점검
 공통
@@ -57,6 +58,7 @@ pipe, mq도 같은 옵션을 쓴다. 서버 --clients와 클라이언트 --clien
             results/phase2_exp30 (원인 확인 실험, 조건당 30회), results/phase2_mem30 (캐시 용량 실험, 조건당 30회)
             results/phase2_exp, results/phase2_mem (같은 실험의 첫 10회 측정, 보고서에는 30회 결과를 씀)
             results/supp (보충 실험 S1~S4, 예측과 판정은 docs/prediction-supp.md)
+            results/supp_s5 (보충 실험 S5 응답 크기 고정, 예측과 판정은 docs/prediction-s5.md)
             results/phase2_exp30_excluded (측정 중 PC 절전으로 제외하고 다시 잰 워커 16 조건의 원래 데이터)
 측정 품질 점검: scripts/check_outliers.py results > results/outlier_check.txt
 본측정 전 준비: 전원 연결, 다른 프로그램과 Docker Desktop 종료.
@@ -66,6 +68,7 @@ WSL2에서는 소스를 Linux 쪽(예: ~/osproject)에 두고 실행한다. /mnt
 IPC_MQ_DEPTH (기본 5), IPC_MQ_MSGSIZE (기본 8192)          1단계 서버 쪽
 IPC_SHM_SLOTS (기본 64), IPC_SHM_SLOT_SIZE (기본 8192)     서버 쪽
 APP_WORKERS (기본 4), APP_CACHE_MB (기본 64), APP_SENDER (기본 direct)   2단계 스크립트
+APP_SIZE_CLASS (기본 없음 = 크기 분포대로, 16 / 256 / 1024)   2단계 클라이언트, 응답 크기 구간 고정
 
 [IPC 이름]
 POSIX shm: /osproject_조번호_c클라이언트번호_shm (예: /osproject_3_c0_shm)
@@ -84,3 +87,4 @@ docs/requirements-check.md  과제 요구사항 점검표
 docs/phase2-design.md       2단계 응용 설계안
 docs/prediction.md          구현 전 성능 예측 (태그 prediction-v1, 구현 전 커밋)
 docs/prediction-supp.md     보충 실험 측정 전 예측과 측정 후 판정
+docs/prediction-s5.md       보충 실험 S5 측정 전 예측과 측정 후 판정
