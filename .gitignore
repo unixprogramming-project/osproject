@@ -3,3 +3,4 @@ results/pilot/
 spin
 osproject_*.tar
 *.o
+__pycache__/

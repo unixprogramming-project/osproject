@@ -1,0 +1,137 @@
+s1_buffer  pipe    ('pingpong', '16384', '1')       rep= 2    89312.0 med=   33281.0 z=   6.1 ~21:37:17
+s1_buffer  pipe    ('throughput', '16384', '8')     rep=25    16106.2 med=   20198.6 z=  -6.2 ~21:28:03
+s1_buffer  pipe    ('throughput', '16384', '8')     rep= 5    12883.5 med=   20198.6 z= -11.2 ~21:28:13
+s1_buffer  pipe    ('throughput', '16384', '8')     rep=21    13163.5 med=   20198.6 z= -10.7 ~21:33:53
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep=27     7930.4 med=    9079.0 z=  -9.4 ~21:27:13
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep= 7     7363.7 med=    9079.0 z= -14.0 ~21:27:37
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep=24     7996.3 med=    9079.0 z=  -8.9 ~21:28:47
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep= 8     7235.6 med=    9079.0 z= -15.1 ~21:29:38
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep=30     7263.0 med=    9079.0 z= -14.9 ~21:29:51
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep=17     7711.4 med=    9079.0 z= -11.2 ~21:33:28
+s1_buffer  pipe    ('throughput', '1048576', '8')   rep=25     6422.5 med=    9079.0 z= -21.8 ~21:40:23
+s1_buffer  pipe    ('throughput', '64', '1')        rep=30      125.6 med=     134.6 z=  -6.5 ~21:34:27
+s1_buffer  pipe    ('throughput', '1024', '8')      rep= 4     8516.2 med=    9933.6 z=  -8.1 ~21:26:48
+s1_buffer  pipe    ('throughput', '1024', '8')      rep=18     8068.4 med=    9933.6 z= -10.6 ~21:32:51
+s1_buffer  pipe    ('pingpong', '1048576', '8')     rep= 9  2000945.0 med= 1912954.0 z=   8.4 ~21:26:37
+s1_buffer  pipe    ('pingpong', '1048576', '8')     rep=27  2468514.0 med= 1912954.0 z=  53.2 ~21:27:26
+s1_buffer  pipe    ('pingpong', '1048576', '8')     rep= 6  2253802.0 med= 1912954.0 z=  32.6 ~21:29:00
+s1_buffer  pipe    ('pingpong', '1048576', '8')     rep=30  2389848.0 med= 1912954.0 z=  45.7 ~21:33:54
+s1_buffer  pipe    ('pingpong', '1048576', '8')     rep=13  2130435.0 med= 1912954.0 z=  20.8 ~21:35:04
+s1_buffer  pipe    ('pingpong', '262144', '8')      rep=30   476543.0 med=  438199.0 z=  12.2 ~21:27:35
+s1_buffer  pipe    ('pingpong', '262144', '8')      rep= 8   471339.0 med=  438199.0 z=  10.5 ~21:23:55
+s1_buffer  pipe    ('pingpong', '262144', '8')      rep=17   459459.0 med=  438199.0 z=   6.7 ~21:34:52
+s1_buffer  pipe    ('throughput', '64', '8')        rep=27      766.1 med=     901.1 z=  -8.8 ~21:28:01
+s1_buffer  pipe    ('throughput', '64', '8')        rep=14      767.3 med=     901.1 z=  -8.8 ~21:28:50
+s1_buffer  pipe    ('throughput', '64', '8')        rep=20      755.1 med=     901.1 z=  -9.6 ~21:29:02
+s1_buffer  pipe    ('throughput', '64', '8')        rep=24      790.4 med=     901.1 z=  -7.2 ~21:32:14
+s1_buffer  pipe    ('throughput', '64', '8')        rep=23      737.3 med=     901.1 z= -10.7 ~21:34:05
+s1_buffer  pipe    ('throughput', '64', '8')        rep= 5      799.5 med=     901.1 z=  -6.6 ~21:40:26
+s1_buffer  pipe    ('throughput', '262144', '8')    rep=17     8488.7 med=   10422.1 z= -10.5 ~21:29:26
+s1_buffer  pipe    ('throughput', '262144', '8')    rep=18     8980.0 med=   10422.1 z=  -7.9 ~21:31:26
+s1_buffer  pipe    ('throughput', '262144', '8')    rep=23     9307.0 med=   10422.1 z=  -6.1 ~21:31:36
+s1_buffer  pipe    ('throughput', '262144', '8')    rep= 9     8666.7 med=   10422.1 z=  -9.6 ~21:33:16
+s1_buffer  pipe    ('throughput', '262144', '8')    rep= 3     8474.9 med=   10422.1 z= -10.6 ~21:33:28
+s1_buffer  pipe    ('pingpong', '16384', '8')       rep=23    51256.0 med=   47820.0 z=   9.3 ~21:27:13
+s1_buffer  pipe    ('pingpong', '16384', '8')       rep= 1    50690.0 med=   47820.0 z=   7.8 ~21:30:01
+s1_buffer  pipe    ('pingpong', '16384', '8')       rep=29    53769.0 med=   47820.0 z=  16.1 ~21:30:13
+s1_buffer  pipe    ('pingpong', '16384', '8')       rep=19    52549.0 med=   47820.0 z=  12.8 ~21:30:51
+s1_buffer  shm512  ('throughput', '16384', '8')     rep=21    70955.4 med=  115814.9 z= -10.2 ~21:27:38
+s1_buffer  shm512  ('throughput', '16384', '8')     rep=10    70632.8 med=  115814.9 z= -10.2 ~21:28:00
+s1_buffer  shm512  ('throughput', '16384', '8')     rep= 9    70599.0 med=  115814.9 z= -10.2 ~21:28:50
+s1_buffer  shm512  ('throughput', '16384', '8')     rep= 8    81768.9 med=  115814.9 z=  -7.7 ~21:27:27
+s1_buffer  shm512  ('throughput', '16384', '8')     rep=30    73743.7 med=  115814.9 z=  -9.5 ~21:31:14
+s1_buffer  shm512  ('throughput', '16384', '8')     rep=16    80344.8 med=  115814.9 z=  -8.0 ~21:31:28
+s1_buffer  shm512  ('throughput', '16384', '8')     rep=17    71793.2 med=  115814.9 z= -10.0 ~21:32:17
+s1_buffer  shm512  ('throughput', '16384', '8')     rep= 5    76276.0 med=  115814.9 z=  -9.0 ~21:33:03
+s1_buffer  shm512  ('throughput', '262144', '8')    rep= 9    76559.9 med=  113624.3 z= -11.5 ~21:27:04
+s1_buffer  shm512  ('throughput', '262144', '8')    rep= 1    85003.4 med=  113624.3 z=  -8.8 ~21:31:04
+s1_buffer  shm512  ('throughput', '262144', '8')    rep=10    73377.5 med=  113624.3 z= -12.4 ~21:31:39
+s1_buffer  shm512  ('throughput', '262144', '8')    rep=15    46449.3 med=  113624.3 z= -20.8 ~21:34:23
+s1_buffer  shm512  ('throughput', '262144', '8')    rep=28    66928.5 med=  113624.3 z= -14.4 ~21:35:06
+s1_buffer  shm512  ('throughput', '1024', '8')      rep=20    19727.4 med=   25313.8 z= -11.8 ~21:26:49
+s1_buffer  shm512  ('throughput', '1024', '8')      rep= 1    15710.2 med=   25313.8 z= -20.3 ~21:30:16
+s1_buffer  shm512  ('throughput', '1024', '8')      rep= 5    17583.5 med=   25313.8 z= -16.4 ~21:30:37
+s1_buffer  shm512  ('throughput', '1024', '8')      rep=19    11512.2 med=   25313.8 z= -29.2 ~21:34:18
+s1_buffer  shm512  ('pingpong', '262144', '8')      rep=11    85495.0 med=   78978.5 z=   6.1 ~21:27:36
+s1_buffer  shm512  ('pingpong', '262144', '8')      rep= 9    87731.0 med=   78978.5 z=   8.2 ~21:27:47
+s1_buffer  shm512  ('pingpong', '262144', '8')      rep=16    85789.0 med=   78978.5 z=   6.4 ~21:30:52
+s1_buffer  shm512  ('throughput', '1048576', '8')   rep=24    65805.4 med=   99745.5 z=  -7.9 ~21:29:52
+s1_buffer  shm512  ('throughput', '1048576', '8')   rep= 7    70950.2 med=   99745.5 z=  -6.7 ~21:30:04
+s1_buffer  shm512  ('throughput', '1048576', '8')   rep=17    71072.0 med=   99745.5 z=  -6.6 ~21:32:04
+s1_buffer  shm512  ('throughput', '1048576', '8')   rep=26    66979.1 med=   99745.5 z=  -7.6 ~21:32:05
+s1_buffer  shm512  ('pingpong', '16384', '8')       rep=15    46169.0 med=   42250.0 z=  12.0 ~21:27:14
+s1_buffer  shm512  ('pingpong', '16384', '8')       rep= 3    45058.0 med=   42250.0 z=   8.6 ~21:30:02
+s1_buffer  shm512  ('pingpong', '16384', '8')       rep= 9    46213.0 med=   42250.0 z=  12.1 ~21:30:03
+s1_buffer  shm512  ('pingpong', '16384', '8')       rep=24    45675.0 med=   42250.0 z=  10.5 ~21:30:26
+s1_buffer  shm512  ('pingpong', '1024', '1')        rep= 6    32519.0 med=   20682.0 z=   6.0 ~21:26:49
+s1_buffer  shm512  ('pingpong', '1024', '1')        rep=22    34625.0 med=   20682.0 z=   7.1 ~21:26:58
+s1_buffer  shm512  ('pingpong', '16384', '1')       rep=21    37335.0 med=   22878.5 z=   6.9 ~21:26:32
+s1_buffer  shm512  ('pingpong', '16384', '1')       rep=19    36835.0 med=   22878.5 z=   6.6 ~21:31:43
+s1_buffer  shm512  ('pingpong', '16384', '1')       rep=15    36014.0 med=   22878.5 z=   6.3 ~21:32:49
+s1_buffer  shm512  ('pingpong', '262144', '1')      rep= 7    71400.0 med=   45413.5 z=  10.5 ~21:28:11
+s1_buffer  shm512  ('throughput', '64', '8')        rep=15     1185.9 med=    1831.6 z=  -8.6 ~21:29:26
+s1_buffer  shm512  ('pingpong', '1048576', '1')     rep=20   145352.0 med=  114021.0 z=   7.6 ~21:27:48
+s1_buffer  shm512  ('pingpong', '1048576', '1')     rep=10   146602.0 med=  114021.0 z=   7.9 ~21:27:49
+s1_buffer  shm512  ('pingpong', '1048576', '8')     rep=23   391142.0 med=  302277.5 z=  12.2 ~21:27:23
+s1_buffer  shm512  ('pingpong', '1048576', '8')     rep= 3   358931.0 med=  302277.5 z=   7.8 ~21:34:04
+s1_buffer  shm64   ('throughput', '1048576', '8')   rep= 8    36697.6 med=   47050.7 z=  -7.2 ~21:25:33
+s1_buffer  shm64   ('throughput', '1048576', '8')   rep=25    29537.9 med=   47050.7 z= -12.1 ~21:34:17
+s1_buffer  shm64   ('throughput', '262144', '8')    rep=28    37754.3 med=   52549.3 z=  -6.1 ~21:28:38
+s1_buffer  shm64   ('throughput', '262144', '8')    rep=24    34353.4 med=   52549.3 z=  -7.5 ~21:29:14
+s1_buffer  shm64   ('pingpong', '16384', '1')       rep=15    36781.0 med=   23390.0 z=   6.3 ~21:24:28
+s1_buffer  shm64   ('pingpong', '16384', '1')       rep=30    37281.0 med=   23390.0 z=   6.5 ~21:24:54
+s1_buffer  shm64   ('pingpong', '16384', '1')       rep= 8    36965.0 med=   23390.0 z=   6.3 ~21:32:10
+s1_buffer  shm64   ('pingpong', '16384', '1')       rep=27    37265.0 med=   23390.0 z=   6.5 ~21:35:49
+s1_buffer  shm64   ('pingpong', '262144', '8')      rep=12   188996.0 med=  224099.0 z=  -6.8 ~21:32:04
+s1_buffer  shm64   ('pingpong', '64', '1')          rep= 1    35323.0 med=   19713.5 z=   8.6 ~21:25:08
+s1_buffer  shm64   ('pingpong', '64', '1')          rep= 4    34305.0 med=   19713.5 z=   8.1 ~21:40:07
+s2_sender  direct  ('shm', 2, 80)                   rep=26    12845.4 med=   13183.7 z=  -3.6 ~21:46:35
+s2_sender  direct  ('shm', 2, 80)                   rep= 8    12824.2 med=   13183.7 z=  -3.8 ~21:55:52
+s2_sender  direct  ('pipe', 2, 20)                  rep=29     1620.8 med=    2047.5 z=  -3.0 ~21:46:07
+s2_sender  direct  ('pipe', 2, 80)                  rep=30     1839.0 med=    2412.2 z=  -3.1 ~22:07:11
+s2_sender  direct  ('pipe', 4, 80)                  rep=28     2346.3 med=    2852.5 z=  -4.0 ~22:01:02
+s2_sender  direct  ('pipe', 4, 80)                  rep=27     2282.6 med=    2852.5 z=  -4.5 ~22:02:12
+s2_sender  direct  ('shm', 2, 20)                   rep=25     6258.7 med=    6115.7 z=   3.0 ~22:08:38
+s2_sender  direct  ('pipe', 4, 20)                  rep=23     2184.3 med=    2421.8 z=  -9.2 ~21:57:37
+s2_sender  direct  ('pipe', 4, 20)                  rep=26     2320.1 med=    2421.8 z=  -3.9 ~22:04:59
+s2_sender  direct  ('pipe', 4, 20)                  rep=19     2335.4 med=    2421.8 z=  -3.3 ~22:06:50
+s2_sender  direct  ('shm', 4, 80)                   rep=12    14998.6 med=   15927.6 z=  -4.2 ~21:55:45
+s2_sender  direct  ('shm', 4, 80)                   rep=19    14812.4 med=   15927.6 z=  -5.1 ~22:04:55
+s2_sender  thread  ('shm', 4, 80)                   rep=20    17994.6 med=   18547.3 z=  -3.8 ~21:47:41
+s2_sender  thread  ('shm', 4, 80)                   rep=30    17563.9 med=   18547.3 z=  -6.8 ~21:58:29
+s2_sender  thread  ('shm', 2, 80)                   rep=23    12136.4 med=   12407.0 z=  -3.6 ~21:42:42
+s2_sender  thread  ('shm', 2, 80)                   rep= 5    12166.1 med=   12407.0 z=  -3.2 ~21:58:57
+s2_sender  thread  ('shm', 2, 80)                   rep= 2    12679.1 med=   12407.0 z=   3.7 ~21:51:35
+s2_sender  thread  ('pipe', 2, 80)                  rep= 4     2054.6 med=    2678.1 z=  -4.0 ~21:41:50
+s2_sender  thread  ('shm', 4, 20)                   rep=23     6822.4 med=    6701.9 z=   3.7 ~21:44:44
+s2_sender  thread  ('pipe', 4, 20)                  rep= 5     4037.1 med=    4127.6 z=  -5.2 ~21:43:17
+s2_sender  thread  ('pipe', 4, 20)                  rep= 6     4015.3 med=    4127.6 z=  -6.4 ~21:58:25
+s2_sender  thread  ('pipe', 4, 20)                  rep=10     4059.8 med=    4127.6 z=  -3.9 ~21:59:21
+s3_workers w12     ('shm', 4, 80)                   rep=26    12455.1 med=   16284.6 z=  -3.2 ~22:13:32
+s3_workers w14     ('shm', 4, 80)                   rep=11    11700.3 med=   15265.2 z=  -3.0 ~22:13:08
+s3_workers w14     ('shm', 4, 80)                   rep= 1     9491.6 med=   15265.2 z=  -4.9 ~22:14:59
+s3_workers w16     ('shm', 4, 80)                   rep=27    12545.0 med=   14817.8 z=  -3.6 ~22:10:17
+s3_workers w16     ('shm', 4, 80)                   rep=26    12697.5 med=   14817.8 z=  -3.4 ~22:10:45
+s3_workers w16     ('shm', 4, 80)                   rep=21    12403.5 med=   14817.8 z=  -3.8 ~22:11:20
+s3_workers w16     ('shm', 4, 80)                   rep= 1    12184.9 med=   14817.8 z=  -4.2 ~22:14:07
+s3_workers w16     ('shm', 4, 80)                   rep=22    10495.1 med=   14817.8 z=  -6.9 ~22:14:45
+s3_workers w8      ('shm', 4, 80)                   rep= 8    12806.2 med=   18858.3 z=  -4.7 ~22:12:43
+s3_workers w8      ('shm', 4, 80)                   rep=17    14958.1 med=   18858.3 z=  -3.0 ~22:13:43
+s3_workers w8      ('shm', 4, 80)                   rep=10    14646.3 med=   18858.3 z=  -3.3 ~22:14:52
+s3_workers w8      ('shm', 4, 80)                   rep=22    11711.2 med=   18858.3 z=  -5.5 ~22:14:56
+s4_ring    slots16 ('shm', 8, 20)                   rep= 8     7026.8 med=    6648.0 z=   4.8 ~22:22:15
+s4_ring    slots16 ('shm', 8, 20)                   rep=16     6936.5 med=    6648.0 z=   3.6 ~22:22:22
+s4_ring    slots16 ('shm', 8, 20)                   rep=20     7290.6 med=    6648.0 z=   8.1 ~22:21:51
+s4_ring    slots16 ('shm', 8, 80)                   rep=16    16337.4 med=   18975.7 z=  -8.9 ~22:17:39
+s4_ring    slots16 ('shm', 8, 80)                   rep=28    17585.1 med=   18975.7 z=  -4.7 ~22:22:08
+s4_ring    slots64 ('shm', 8, 80)                   rep=25    19372.2 med=   20754.4 z=  -4.2 ~22:16:29
+s4_ring    slots64 ('shm', 8, 80)                   rep=19    18455.3 med=   20754.4 z=  -7.1 ~22:17:36
+s4_ring    slots64 ('shm', 8, 80)                   rep=26    21942.1 med=   20754.4 z=   3.6 ~22:21:58
+s4_ring    slots64 ('shm', 8, 20)                   rep=14     6873.5 med=    6577.3 z=   4.5 ~22:22:29
+runs 2520 flagged(MAD x3) 249
+  median shift s2_sender direct ('pipe', 2, 20): +1.01% (removed 1)
+  median shift s2_sender direct ('pipe', 4, 80): +0.57% (removed 2)
+  median shift s3_workers w12 ('shm', 4, 80): +0.72% (removed 1)
+  median shift s3_workers w14 ('shm', 4, 80): +0.43% (removed 2)
+  median shift s3_workers w16 ('shm', 4, 80): +1.70% (removed 5)
+  median shift s3_workers w8 ('shm', 4, 80): +0.84% (removed 4)
